@@ -367,6 +367,8 @@ def get_train_transforms(
     
     # Camera trap specific augmentations
     transforms_list.extend([
+        custom_wildlife_preprocessing,
+        T.Grayscale(num_output_channels=3),
         AdaptiveBrightnessContrast(auto_adjust=True),
         CameraTrapCrop(size=image_size, probability=0.8),
         AnimalFriendlyFlip(horizontal_prob=0.5),
@@ -558,6 +560,17 @@ def visualize_transforms(
         transformed_images.append(transformed)
     
     return transformed_images
+
+
+def custom_wildlife_preprocessing(image):
+    """Preprocesamiento específico del notebook exitoso"""
+    from PIL import ImageEnhance, ImageFilter
+    
+    image = ImageEnhance.Color(image).enhance(0.8)
+    image = ImageEnhance.Brightness(image).enhance(1.1)
+    image = ImageEnhance.Contrast(image).enhance(1.2)
+    image = image.filter(ImageFilter.UnsharpMask(radius=1, percent=50))
+    return image
 
 
 # Example usage and testing

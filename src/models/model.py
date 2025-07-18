@@ -104,33 +104,28 @@ class WildlifeClassifier(nn.Module):
         logger.info(f"Created {model_name} classifier with {self._count_parameters():,} parameters")
     
     def _build_custom_head(self, dropout: float) -> nn.Module:
-        """Build custom classification head with better regularization."""
-        
-        # Calculate dimensions
-        hidden_dim = max(512, self.feature_dim // 2)
-        site_dim = self.feature_dim // 4 if self.use_site_embedding else 0
-        input_dim = self.feature_dim + site_dim
+        """Build custom classification head exactly like the successful notebook."""
         
         layers = []
         
-        # First layer
+        # Primera capa: 2048 -> 1024
         layers.extend([
-            nn.Linear(input_dim, hidden_dim),
-            nn.BatchNorm1d(hidden_dim),
+            nn.Linear(self.feature_dim, 1024),
+            nn.BatchNorm1d(1024),
             nn.ReLU(inplace=True),
-            nn.Dropout(dropout)
+            nn.Dropout(0.5)  # Dropout alto como en tu notebook
         ])
         
-        # Second layer
+        # Segunda capa: 1024 -> 256  
         layers.extend([
-            nn.Linear(hidden_dim, hidden_dim // 2),
-            nn.BatchNorm1d(hidden_dim // 2),
+            nn.Linear(1024, 256),
+            nn.BatchNorm1d(256),
             nn.ReLU(inplace=True),
-            nn.Dropout(dropout / 2)
+            nn.Dropout(0.3)  # Dropout menor como en tu notebook
         ])
         
-        # Output layer
-        layers.append(nn.Linear(hidden_dim // 2, self.num_classes))
+        # Capa final: 256 -> 8
+        layers.append(nn.Linear(256, self.num_classes))
         
         return nn.Sequential(*layers)
     
