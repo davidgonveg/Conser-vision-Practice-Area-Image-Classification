@@ -1,26 +1,120 @@
-# Taï National Park Camera Trap Image Classification Challenge
+# Taï National Park Camera Trap Species Classification
 
-## Problem Description
-In this challenge, participants are tasked with classifying species in camera trap images from Taï National Park. Images capture seven species types plus images with no animals. The goal is to assist conservation efforts by accurately predicting species presence in these images.
+This project implements a deep learning solution for classifying species in camera trap images from Taï National Park. The goal is to help conservation efforts by automatically identifying different animal species in camera trap footage.
 
-## Data
-- **Training and Testing Sets**: Images in `train_features` and `test_features` directories.
-- **Metadata**: `train_features.csv` and `test_features.csv` include image ID, filepath, and site.
+## Project Structure
 
-## Features
-- Images come with additional attributes: `id`, `filepath`, and `site`.
-- There's no site overlap between training and testing data, emphasizing model generalization.
+```
+tai-park-species-classification/
+├── data/                    # Data directory
+│   ├── raw/                # Original data files
+│   ├── processed/          # Processed data
+│   └── submissions/        # Generated submissions
+├── src/                    # Source code
+│   ├── data/              # Data loading and preprocessing
+│   ├── models/            # Model definitions
+│   ├── training/          # Training logic
+│   ├── evaluation/        # Evaluation and metrics
+│   ├── inference/         # Inference and prediction
+│   └── utils/             # Utility functions
+├── scripts/               # Executable scripts
+├── notebooks/             # Jupyter notebooks for exploration
+├── configs/               # Configuration files
+├── results/               # Results, models, and logs
+└── tests/                 # Unit tests
+```
 
-## Labels
-- Eight possible labels: seven species and 'blank' for no animals.
-- Each image is labeled for one species group or as blank.
+## Species Classes
 
-## Submission and Evaluation
-- Submit probabilities for each of the eight classes for images in `test_features`.
-- Evaluation is based on log loss, with lower values indicating better performance.
+The model classifies images into 8 categories:
+- antelope_duiker
+- bird
+- blank (no animals)
+- civet_genet
+- hog
+- leopard
+- monkey_prosimian
+- rodent
 
-## Tips
-- Consider different environments by ensuring train/test sets have disjoint sites.
-- Use image augmentation to address variations within images.
+## Setup
 
-Good luck, and for more information or questions, visit the user forum for this competition.
+### Using Conda (Recommended)
+
+```bash
+conda env create -f environment.yml
+conda activate tai-park-species
+```
+
+### Using pip
+
+```bash
+pip install -r requirements.txt
+```
+
+### Development Installation
+
+```bash
+pip install -e .
+```
+
+## Usage
+
+### Data Preparation
+
+1. Place the competition data in `data/raw/`:
+   - `train_features/` - Training images
+   - `test_features/` - Test images
+   - `train_features.csv` - Training metadata
+   - `test_features.csv` - Test metadata
+   - `train_labels.csv` - Training labels
+   - `submission_format.csv` - Submission format
+
+### Training
+
+```bash
+python scripts/train_model.py --config configs/base_config.yaml
+```
+
+### Evaluation
+
+```bash
+python scripts/evaluate_model.py --model results/models/best_model.pth
+```
+
+### Generate Submission
+
+```bash
+python scripts/generate_submission.py --model results/models/best_model.pth
+```
+
+## Key Features
+
+- **Site-aware validation**: Ensures models generalize to new camera trap sites
+- **Image augmentation**: Robust preprocessing for varied lighting and angles
+- **Multiple model architectures**: Support for various CNN architectures
+- **Ensemble methods**: Combine multiple models for better performance
+- **Comprehensive evaluation**: Detailed metrics and visualization tools
+
+## Competition Details
+
+This project is designed for the Taï National Park camera trap species classification competition. The evaluation metric is log loss, and the challenge emphasizes model generalization to unseen camera trap sites.
+
+## Development
+
+### Running Tests
+
+```bash
+pytest tests/
+```
+
+### Code Formatting
+
+```bash
+black src/ scripts/ tests/
+isort src/ scripts/ tests/
+flake8 src/ scripts/ tests/
+```
+
+## License
+
+This project is licensed under the MIT License.

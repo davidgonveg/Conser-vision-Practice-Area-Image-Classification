@@ -1,0 +1,65 @@
+# Base configuration for Taï Park Species Classification
+
+# Data settings
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  train_images_dir: "data/raw/train_features"
+  test_images_dir: "data/raw/test_features"
+  train_metadata: "data/raw/train_features.csv"
+  test_metadata: "data/raw/test_features.csv"
+  train_labels: "data/raw/train_labels.csv"
+  
+# Model settings
+model:
+  name: "resnet50"
+  num_classes: 8
+  pretrained: true
+  dropout: 0.2
+  
+# Training settings
+training:
+  batch_size: 32
+  num_epochs: 50
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  validation_split: 0.2
+  early_stopping_patience: 10
+  
+# Image preprocessing
+image:
+  size: [224, 224]
+  normalize:
+    mean: [0.485, 0.456, 0.406]
+    std: [0.229, 0.224, 0.225]
+    
+# Augmentation settings
+augmentation:
+  horizontal_flip: 0.5
+  vertical_flip: 0.2
+  rotation: 15
+  brightness: 0.2
+  contrast: 0.2
+  
+# Logging and monitoring
+logging:
+  log_dir: "results/logs"
+  tensorboard_dir: "results/logs/tensorboard"
+  save_frequency: 5
+  
+# Output settings
+output:
+  models_dir: "results/models"
+  predictions_dir: "data/submissions"
+  plots_dir: "results/plots"
+  
+# Species classes
+classes:
+  - "antelope_duiker"
+  - "bird"
+  - "blank"
+  - "civet_genet"
+  - "hog"
+  - "leopard"
+  - "monkey_prosimian"
+  - "rodent"
