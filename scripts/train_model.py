@@ -136,14 +136,14 @@ def setup_device(device_str: str = 'auto') -> torch.device:
     if device_str == 'auto':
         if torch.cuda.is_available():
             device = torch.device('cuda')
-            print(f"🚀 Using GPU: {torch.cuda.get_device_name()}")
+            print(f" Using GPU: {torch.cuda.get_device_name()}")
             print(f"   Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f}GB")
         else:
             device = torch.device('cpu')
-            print("💻 Using CPU")
+            print(" Using CPU")
     else:
         device = torch.device(device_str)
-        print(f"🔧 Using specified device: {device}")
+        print(f" Using specified device: {device}")
     
     return device
 
@@ -194,7 +194,7 @@ def setup_logging_and_monitoring(
             config=vars(args),
             dir=directories['logs']
         )
-        logger.info("🔗 W&B logging enabled")
+        logger.info(" W&B logging enabled")
     
     return logger, tb_writer, wandb_run
 
@@ -276,7 +276,7 @@ def create_model_and_optimizer(
     # Compile model if requested (PyTorch 2.0+)
     if args.compile and hasattr(torch, 'compile'):
         model = torch.compile(model)
-        print("⚡ Model compiled for faster training")
+        print(" Model compiled for faster training")
     
     # Create optimizer
     optimizer = optim.AdamW(
@@ -289,13 +289,13 @@ def create_model_and_optimizer(
     if args.focal_loss:
         from src.training.losses import FocalLoss
         criterion = FocalLoss(alpha=class_weights, gamma=2.0)
-        print("🎯 Using Focal Loss")
+        print(" Using Focal Loss")
     else:
         criterion = nn.CrossEntropyLoss(weight=class_weights)
         if class_weights is not None:
-            print("⚖️  Using weighted CrossEntropyLoss")
+            print("  Using weighted CrossEntropyLoss")
         else:
-            print("📊 Using standard CrossEntropyLoss")
+            print(" Using standard CrossEntropyLoss")
     
     return model, optimizer, criterion
 
@@ -322,7 +322,7 @@ def create_data_loaders(
     if args.quick_test:
         data_config['batch_size'] = 8
         data_config['num_workers'] = 2
-        print("🚀 Quick test mode - using smaller batch size")
+        print(" Quick test mode - using smaller batch size")
     
     # Create data manager
     data_manager = DataLoaderManager(**data_config)
@@ -331,7 +331,7 @@ def create_data_loaders(
     class_weights = None
     if args.class_weights:
         class_weights = data_manager.get_class_weights()
-        print(f"📊 Class weights: {class_weights}")
+        print(f" Class weights: {class_weights}")
     
     return data_manager, class_weights
 
@@ -385,13 +385,13 @@ def main():
     # Setup logging and monitoring
     logger, tb_writer, wandb_run = setup_logging_and_monitoring(args, directories)
     
-    logger.info("🚀 Starting Taï Park Species Classification Training")
-    logger.info(f"📂 Output directory: {directories['models']}")
-    logger.info(f"🔧 Configuration: {args.config}")
+    logger.info(" Starting Taï Park Species Classification Training")
+    logger.info(f" Output directory: {directories['models']}")
+    logger.info(f" Configuration: {args.config}")
     
     try:
         # Create data loaders
-        logger.info("📚 Creating data loaders...")
+        logger.info(" Creating data loaders...")
         data_manager, class_weights = create_data_loaders(config, args)
         
         # Move class weights to device
@@ -399,7 +399,7 @@ def main():
             class_weights = class_weights.to(device)
         
         # Create model, optimizer, and loss function
-        logger.info("🧠 Creating model...")
+        logger.info(" Creating model...")
         model, optimizer, criterion = create_model_and_optimizer(
             config, args, device, class_weights
         )
@@ -417,7 +417,6 @@ def main():
             mode='min', 
             patience=config.get('training.scheduler_patience', 5),
             factor=config.get('training.scheduler_factor', 0.5),
-            verbose=True
         )
         
         # Create trainer
@@ -439,23 +438,23 @@ def main():
         start_epoch = 0
         if args.resume:
             start_epoch = trainer.load_checkpoint(args.resume)
-            logger.info(f"📥 Resumed training from epoch {start_epoch}")
+            logger.info(f" Resumed training from epoch {start_epoch}")
         
         # Quick test mode
         if args.quick_test:
-            logger.info("🚀 Quick test mode - training for 2 epochs")
+            logger.info(" Quick test mode - training for 2 epochs")
             config.config['training']['num_epochs'] = 2
         
         # Dry run mode
         if args.dry_run:
-            logger.info("🔍 Dry run mode - setup completed successfully")
-            logger.info(f"📊 Training samples: {len(data_manager.train_dataset)}")
-            logger.info(f"📊 Validation samples: {len(data_manager.val_dataset)}")
-            logger.info(f"🧠 Model parameters: {sum(p.numel() for p in model.parameters()):,}")
+            logger.info(" Dry run mode - setup completed successfully")
+            logger.info(f" Training samples: {len(data_manager.train_dataset)}")
+            logger.info(f" Validation samples: {len(data_manager.val_dataset)}")
+            logger.info(f" Model parameters: {sum(p.numel() for p in model.parameters()):,}")
             return
         
         # Start training
-        logger.info("🎯 Starting training...")
+        logger.info(" Starting training...")
         trainer.train(
             train_loader=data_manager.train_loader,
             val_loader=data_manager.val_loader,
@@ -464,15 +463,15 @@ def main():
         )
         
         # Training completed
-        logger.info("🎉 Training completed successfully!")
+        logger.info(" Training completed successfully!")
         
         # Save final model
         final_model_path = directories['models'] / 'final_model.pth'
         trainer.save_model(final_model_path)
-        logger.info(f"💾 Final model saved to: {final_model_path}")
+        logger.info(f" Final model saved to: {final_model_path}")
         
     except Exception as e:
-        logger.error(f"❌ Training failed: {str(e)}")
+        logger.error(f" Training failed: {str(e)}")
         import traceback
         logger.error(traceback.format_exc())
         raise

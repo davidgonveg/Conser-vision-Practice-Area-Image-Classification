@@ -10,7 +10,13 @@ class Config:
     
     def __init__(self, config_path: str = None):
         self.project_root = Path(__file__).parent.parent.parent
-        self.config_path = config_path or self.project_root / "configs" / "base_config.yaml"
+        
+        # Fix: Convert string to Path object
+        if config_path:
+            self.config_path = Path(config_path)
+        else:
+            self.config_path = self.project_root / "configs" / "base_config.yaml"
+            
         self.config = self._load_config()
     
     def _load_config(self) -> Dict[str, Any]:
