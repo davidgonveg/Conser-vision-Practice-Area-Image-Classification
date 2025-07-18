@@ -25,6 +25,9 @@ MANIFEST
 *.pth
 *.pt
 
+#Notebooks antiguos
+solution.ipynb
+solution copy.ipynb
 
 
 # Jupyter Notebook

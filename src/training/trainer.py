@@ -400,7 +400,7 @@ class Trainer:
             self._update_training_history(train_metrics, val_metrics)
             
             # Check for best model
-            is_best = val_metrics['loss'] < self.best_val_loss
+            is_best = val_metrics['log_loss'] < self.best_val_loss
             if is_best:
                 self.best_val_loss = val_metrics['loss']
                 self.best_val_acc = val_metrics['accuracy']

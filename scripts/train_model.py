@@ -279,11 +279,7 @@ def create_model_and_optimizer(
         print(" Model compiled for faster training")
     
     # Create optimizer
-    optimizer = optim.AdamW(
-        model.parameters(),
-        lr=config.get('training.learning_rate', 0.001),
-        weight_decay=config.get('training.weight_decay', 0.0001)
-    )
+    optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.909431, weight_decay=0.005)
     
     # Create loss function
     if args.focal_loss:
@@ -412,12 +408,7 @@ def main():
         save_training_config(config, args, directories, model)
         
         # Create scheduler
-        scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-            optimizer, 
-            mode='min', 
-            patience=config.get('training.scheduler_patience', 5),
-            factor=config.get('training.scheduler_factor', 0.5),
-        )
+        scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, patience=2, factor=0.72)
         
         # Create trainer
         trainer = Trainer(
@@ -433,6 +424,14 @@ def main():
             wandb_run=wandb_run,
             mixed_precision=args.mixed_precision
         )
+        
+        # Congelar capas excepto layer4
+        for name, param in model.named_parameters():
+            if 'layer4' in name or 'fc' in name:
+                param.requires_grad = True
+            else:
+                param.requires_grad = False
+
         
         # Resume from checkpoint if specified
         start_epoch = 0

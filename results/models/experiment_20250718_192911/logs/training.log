@@ -1,0 +1,68 @@
+2025-07-18 19:29:11,585 - tai_park_training - INFO -  Starting Taï Park Species Classification Training
+2025-07-18 19:29:11,585 - tai_park_training - INFO -  Output directory: results\models\experiment_20250718_192911\models
+2025-07-18 19:29:11,586 - tai_park_training - INFO -  Configuration: configs/base_config.yaml
+2025-07-18 19:29:11,586 - tai_park_training - INFO -  Creating data loaders...
+2025-07-18 19:29:14,892 - tai_park_training - INFO -  Creating model...
+2025-07-18 19:29:15,442 - tai_park_training - INFO -  MODEL INFORMATION
+2025-07-18 19:29:15,442 - tai_park_training - INFO - ==================================================
+2025-07-18 19:29:15,443 - tai_park_training - INFO -  Model: resnet50
+2025-07-18 19:29:15,444 - tai_park_training - INFO -  Parameters:
+2025-07-18 19:29:15,444 - tai_park_training - INFO -    Total: 25,873,224
+2025-07-18 19:29:15,444 - tai_park_training - INFO -    Trainable: 25,873,224
+2025-07-18 19:29:15,444 - tai_park_training - INFO -    Frozen: 0
+2025-07-18 19:29:15,445 - tai_park_training - INFO -  Estimated model size: 98.91 MB
+2025-07-18 19:29:15,445 - tai_park_training - INFO -   Architecture:
+2025-07-18 19:29:15,445 - tai_park_training - INFO -    backbone: ResNet
+2025-07-18 19:29:15,445 - tai_park_training - INFO -    classifier: Sequential
+2025-07-18 19:29:15,445 - tai_park_training - INFO -  use_site_embedding: False
+2025-07-18 19:29:15,446 - tai_park_training - INFO -  use_attention: False
+2025-07-18 19:29:15,446 - tai_park_training - INFO -  num_classes: 8
+2025-07-18 19:29:15,446 - tai_park_training - INFO -  feature_dim: 2048
+2025-07-18 19:29:15,446 - tai_park_training - INFO -   TRAINING CONFIGURATION
+2025-07-18 19:29:15,446 - tai_park_training - INFO - ==================================================
+2025-07-18 19:29:15,446 - tai_park_training - INFO -  Training:
+2025-07-18 19:29:15,446 - tai_park_training - INFO -    Epochs: 3
+2025-07-18 19:29:15,447 - tai_park_training - INFO -    Batch size: 32
+2025-07-18 19:29:15,447 - tai_park_training - INFO -    Learning rate: 0.01
+2025-07-18 19:29:15,447 - tai_park_training - INFO -    Weight decay: 0.0001
+2025-07-18 19:29:15,447 - tai_park_training - INFO -    Early stopping patience: 10
+2025-07-18 19:29:15,447 - tai_park_training - INFO -  Data:
+2025-07-18 19:29:15,447 - tai_park_training - INFO -    Data directory: data/raw
+2025-07-18 19:29:15,447 - tai_park_training - INFO -    Image size: [224, 224]
+2025-07-18 19:29:15,448 - tai_park_training - INFO -    Number of workers: N/A
+2025-07-18 19:29:15,448 - tai_park_training - INFO -    Sampler type: N/A
+2025-07-18 19:29:15,448 - tai_park_training - INFO -    Aggressive augmentation: False
+2025-07-18 19:29:15,448 - tai_park_training - INFO -  Model:
+2025-07-18 19:29:15,448 - tai_park_training - INFO -    Architecture: resnet50
+2025-07-18 19:29:15,448 - tai_park_training - INFO -    Pretrained: True
+2025-07-18 19:29:15,449 - tai_park_training - INFO -    Dropout: 0.5
+2025-07-18 19:29:15,449 - tai_park_training - INFO -    Freeze backbone: False
+2025-07-18 19:29:15,449 - tai_park_training - INFO -  Hardware:
+2025-07-18 19:29:15,449 - tai_park_training - INFO -    Device: auto
+2025-07-18 19:29:15,449 - tai_park_training - INFO -    Mixed precision: False
+2025-07-18 19:29:15,449 - tai_park_training - INFO -    Compile: False
+2025-07-18 19:29:15,449 - tai_park_training - INFO -  Logging:
+2025-07-18 19:29:15,450 - tai_park_training - INFO -    W&B enabled: False
+2025-07-18 19:29:15,450 - tai_park_training - INFO -    Experiment name: None
+2025-07-18 19:29:15,450 - tai_park_training - INFO -    Log level: INFO
+2025-07-18 19:29:15,455 - tai_park_training - INFO -  Trainer initialized with mixed precision: False
+2025-07-18 19:29:15,456 - tai_park_training - INFO -  Quick test mode - training for 2 epochs
+2025-07-18 19:29:15,456 - tai_park_training - INFO -  Starting training...
+2025-07-18 19:29:15,456 - tai_park_training - INFO -  Starting training for 2 epochs
+2025-07-18 19:29:15,456 - tai_park_training - INFO -  Training samples: 13484
+2025-07-18 19:29:15,456 - tai_park_training - INFO -  Validation samples: 3004
+2025-07-18 19:31:34,082 - tai_park_training - INFO -  Epoch 1 completed in 138.63s
+2025-07-18 19:31:34,083 - tai_park_training - INFO -    Train - Loss: 2.1293, Acc: 0.1451
+2025-07-18 19:31:34,083 - tai_park_training - INFO -    Val   - Loss: 7.6225, Acc: 0.2200, LogLoss: 2.1975
+2025-07-18 19:31:34,289 - tai_park_training - INFO -  Checkpoint saved to: results\models\experiment_20250718_192911\models\best_model.pth
+2025-07-18 19:31:34,289 - tai_park_training - INFO -  New best model saved! Val Loss: 7.6225
+2025-07-18 19:34:04,263 - tai_park_training - INFO -  Epoch 2 completed in 149.97s
+2025-07-18 19:34:04,263 - tai_park_training - INFO -    Train - Loss: 1.8938, Acc: 0.2574
+2025-07-18 19:34:04,264 - tai_park_training - INFO -    Val   - Loss: 10.3904, Acc: 0.2577, LogLoss: 2.0979
+2025-07-18 19:34:04,266 - tai_park_training - INFO -  Training completed in 288.81 seconds
+2025-07-18 19:34:04,266 - tai_park_training - INFO -  Best validation loss: 7.6225
+2025-07-18 19:34:04,266 - tai_park_training - INFO -  Best validation accuracy: 0.2200
+2025-07-18 19:34:04,267 - tai_park_training - INFO -  Training history saved to: results\models\experiment_20250718_192911\models\training_history.json
+2025-07-18 19:34:04,267 - tai_park_training - INFO -  Training completed successfully!
+2025-07-18 19:34:04,411 - tai_park_training - INFO -  Model saved for inference: results\models\experiment_20250718_192911\models\final_model.pth
+2025-07-18 19:34:04,412 - tai_park_training - INFO -  Final model saved to: results\models\experiment_20250718_192911\models\final_model.pth

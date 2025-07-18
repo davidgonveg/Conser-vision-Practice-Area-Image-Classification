@@ -15,7 +15,7 @@ model:
   name: "resnet50"
   num_classes: 8
   pretrained: true
-  dropout: 0.2
+  dropout: 0.5
   
 # Training settings
 training:
