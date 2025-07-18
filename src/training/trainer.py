@@ -88,7 +88,7 @@ class Trainer:
         self.save_frequency = config.get('training.save_frequency', 5)
         self.gradient_clip_norm = config.get('training.gradient_clip_norm', 1.0)
         
-        self.logger.info(f"🔧 Trainer initialized with mixed precision: {mixed_precision}")
+        self.logger.info(f" Trainer initialized with mixed precision: {mixed_precision}")
     
     def train_epoch(self, train_loader: torch.utils.data.DataLoader) -> Dict[str, float]:
         """
@@ -367,9 +367,9 @@ class Trainer:
             Training history dictionary
         """
         
-        self.logger.info(f"🎯 Starting training for {num_epochs} epochs")
-        self.logger.info(f"📊 Training samples: {len(train_loader.dataset)}")
-        self.logger.info(f"📊 Validation samples: {len(val_loader.dataset)}")
+        self.logger.info(f" Starting training for {num_epochs} epochs")
+        self.logger.info(f" Training samples: {len(train_loader.dataset)}")
+        self.logger.info(f" Validation samples: {len(val_loader.dataset)}")
         
         training_start_time = time.time()
         
@@ -409,7 +409,7 @@ class Trainer:
                 # Save best model
                 best_model_path = self.output_dir / 'best_model.pth'
                 self.save_checkpoint(best_model_path, epoch, is_best=True)
-                self.logger.info(f"💾 New best model saved! Val Loss: {val_metrics['loss']:.4f}")
+                self.logger.info(f" New best model saved! Val Loss: {val_metrics['loss']:.4f}")
             else:
                 self.early_stopping_counter += 1
             
@@ -420,14 +420,14 @@ class Trainer:
             
             # Early stopping
             if self.early_stopping_counter >= self.early_stopping_patience:
-                self.logger.info(f"⏰ Early stopping triggered after {self.early_stopping_patience} epochs without improvement")
+                self.logger.info(f" Early stopping triggered after {self.early_stopping_patience} epochs without improvement")
                 break
         
         # Training completed
         training_time = time.time() - training_start_time
-        self.logger.info(f"🎉 Training completed in {training_time:.2f} seconds")
-        self.logger.info(f"🏆 Best validation loss: {self.best_val_loss:.4f}")
-        self.logger.info(f"🏆 Best validation accuracy: {self.best_val_acc:.4f}")
+        self.logger.info(f" Training completed in {training_time:.2f} seconds")
+        self.logger.info(f" Best validation loss: {self.best_val_loss:.4f}")
+        self.logger.info(f" Best validation accuracy: {self.best_val_acc:.4f}")
         
         # Save final training history
         self._save_training_history()
@@ -443,13 +443,13 @@ class Trainer:
         """Log metrics for the current epoch."""
         
         # Console logging
-        self.logger.info(f"📊 Epoch {self.current_epoch + 1} completed in {epoch_time:.2f}s")
+        self.logger.info(f" Epoch {self.current_epoch + 1} completed in {epoch_time:.2f}s")
         self.logger.info(f"   Train - Loss: {train_metrics['loss']:.4f}, Acc: {train_metrics['accuracy']:.4f}")
         self.logger.info(f"   Val   - Loss: {val_metrics['loss']:.4f}, Acc: {val_metrics['accuracy']:.4f}, LogLoss: {val_metrics['log_loss']:.4f}")
         
         # Log class-wise accuracy
         if self.logger.isEnabledFor(logging.DEBUG):
-            self.logger.debug("🏷️  Class-wise validation accuracy:")
+            self.logger.debug("  Class-wise validation accuracy:")
             for class_name, acc in val_metrics['class_accuracy'].items():
                 self.logger.debug(f"     {class_name}: {acc:.4f}")
         
@@ -519,7 +519,7 @@ class Trainer:
         with open(history_path, 'w') as f:
             json.dump(history_dict, f, indent=2)
         
-        self.logger.info(f"📝 Training history saved to: {history_path}")
+        self.logger.info(f" Training history saved to: {history_path}")
     
     def save_checkpoint(self, path: Path, epoch: int, is_best: bool = False):
         """Save model checkpoint."""
@@ -542,7 +542,7 @@ class Trainer:
             checkpoint['scaler_state_dict'] = self.scaler.state_dict()
         
         torch.save(checkpoint, path)
-        self.logger.info(f"💾 Checkpoint saved to: {path}")
+        self.logger.info(f" Checkpoint saved to: {path}")
     
     def load_checkpoint(self, path: Path) -> int:
         """
@@ -581,8 +581,8 @@ class Trainer:
         
         start_epoch = checkpoint['epoch'] + 1
         
-        self.logger.info(f"📥 Checkpoint loaded from: {path}")
-        self.logger.info(f"📊 Resuming from epoch {start_epoch}")
+        self.logger.info(f" Checkpoint loaded from: {path}")
+        self.logger.info(f" Resuming from epoch {start_epoch}")
         
         return start_epoch
     
@@ -599,8 +599,8 @@ class Trainer:
         }
         
         torch.save(model_state, path)
-        self.logger.info(f"💾 Model saved for inference: {path}")
-    
+        self.logger.info(f" Model saved for inference: {path}")
+
     def get_model_summary(self) -> Dict[str, Any]:
         """Get model summary information."""
         

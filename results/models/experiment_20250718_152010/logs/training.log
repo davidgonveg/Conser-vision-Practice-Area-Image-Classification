@@ -1,0 +1,47 @@
+2025-07-18 15:20:14,658 - tai_park_training - INFO -  MODEL INFORMATION
+2025-07-18 15:20:14,658 - tai_park_training - INFO - ==================================================
+2025-07-18 15:20:14,659 - tai_park_training - INFO -  Model: resnet50
+2025-07-18 15:20:14,660 - tai_park_training - INFO -  Parameters:
+2025-07-18 15:20:14,660 - tai_park_training - INFO -    Total: 26,138,184
+2025-07-18 15:20:14,660 - tai_park_training - INFO -    Trainable: 26,138,184
+2025-07-18 15:20:14,660 - tai_park_training - INFO -    Frozen: 0
+2025-07-18 15:20:14,661 - tai_park_training - INFO -  Estimated model size: 99.92 MB
+2025-07-18 15:20:14,661 - tai_park_training - INFO -   Architecture:
+2025-07-18 15:20:14,661 - tai_park_training - INFO -    backbone: ResNet
+2025-07-18 15:20:14,661 - tai_park_training - INFO -    classifier: Sequential
+2025-07-18 15:20:14,668 - tai_park_training - INFO -   TRAINING CONFIGURATION
+2025-07-18 15:20:14,668 - tai_park_training - INFO - ==================================================
+2025-07-18 15:20:14,668 - tai_park_training - INFO -  Training:
+2025-07-18 15:20:14,669 - tai_park_training - INFO -    Epochs: 50
+2025-07-18 15:20:14,669 - tai_park_training - INFO -    Batch size: 32
+2025-07-18 15:20:14,669 - tai_park_training - INFO -    Learning rate: 0.001
+2025-07-18 15:20:14,669 - tai_park_training - INFO -    Weight decay: 0.0001
+2025-07-18 15:20:14,669 - tai_park_training - INFO -    Early stopping patience: 10
+2025-07-18 15:20:14,669 - tai_park_training - INFO -  Data:
+2025-07-18 15:20:14,670 - tai_park_training - INFO -    Data directory: data/raw
+2025-07-18 15:20:14,670 - tai_park_training - INFO -    Image size: [224, 224]
+2025-07-18 15:20:14,670 - tai_park_training - INFO -    Number of workers: N/A
+2025-07-18 15:20:14,670 - tai_park_training - INFO -    Sampler type: N/A
+2025-07-18 15:20:14,670 - tai_park_training - INFO -    Aggressive augmentation: False
+2025-07-18 15:20:14,670 - tai_park_training - INFO -  Model:
+2025-07-18 15:20:14,670 - tai_park_training - INFO -    Architecture: resnet50
+2025-07-18 15:20:14,671 - tai_park_training - INFO -    Pretrained: False
+2025-07-18 15:20:14,671 - tai_park_training - INFO -    Dropout: 0.2
+2025-07-18 15:20:14,671 - tai_park_training - INFO -    Freeze backbone: False
+2025-07-18 15:20:14,671 - tai_park_training - INFO -  Hardware:
+2025-07-18 15:20:14,671 - tai_park_training - INFO -    Device: auto
+2025-07-18 15:20:14,671 - tai_park_training - INFO -    Mixed precision: False
+2025-07-18 15:20:14,671 - tai_park_training - INFO -    Compile: False
+2025-07-18 15:20:14,672 - tai_park_training - INFO -  Logging:
+2025-07-18 15:20:14,672 - tai_park_training - INFO -    W&B enabled: False
+2025-07-18 15:20:14,672 - tai_park_training - INFO -    Experiment name: None
+2025-07-18 15:20:14,672 - tai_park_training - INFO -    Log level: INFO
+2025-07-18 15:20:14,679 - tai_park_training - ERROR - Traceback (most recent call last):
+  File "C:\Users\gonza\Documents\Conser-vision-Practice-Area-Image-Classification\scripts\train_model.py", line 415, in main
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(
+        optimizer,
+    ...<3 lines>...
+        verbose=True
+    )
+TypeError: ReduceLROnPlateau.__init__() got an unexpected keyword argument 'verbose'
+
