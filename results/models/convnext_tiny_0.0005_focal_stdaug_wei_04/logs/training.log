@@ -1,0 +1,97 @@
+2025-07-21 08:50:06,741 - tai_park_training - INFO -  Starting Taï Park Species Classification Training
+2025-07-21 08:50:06,741 - tai_park_training - INFO -  Output directory: results\models\convnext_tiny_0.0005_focal_stdaug_wei_04\models
+2025-07-21 08:50:06,742 - tai_park_training - INFO -  Configuration: configs/base_config.yaml
+2025-07-21 08:50:06,742 - tai_park_training - INFO -  Creating data loaders...
+2025-07-21 08:50:10,205 - tai_park_training - INFO -  Creating model...
+2025-07-21 08:50:10,545 - tai_park_training - INFO -  MODEL INFORMATION
+2025-07-21 08:50:10,546 - tai_park_training - INFO - ==================================================
+2025-07-21 08:50:10,546 - tai_park_training - INFO -  Model: convnext_tiny
+2025-07-21 08:50:10,548 - tai_park_training - INFO -  Parameters:
+2025-07-21 08:50:10,548 - tai_park_training - INFO -    Total: 28,874,600
+2025-07-21 08:50:10,548 - tai_park_training - INFO -    Trainable: 28,874,600
+2025-07-21 08:50:10,548 - tai_park_training - INFO -    Frozen: 0
+2025-07-21 08:50:10,549 - tai_park_training - INFO -  Estimated model size: 110.16 MB
+2025-07-21 08:50:10,549 - tai_park_training - INFO -   Architecture:
+2025-07-21 08:50:10,549 - tai_park_training - INFO -    backbone: ConvNeXt
+2025-07-21 08:50:10,549 - tai_park_training - INFO -    classifier: Sequential
+2025-07-21 08:50:10,549 - tai_park_training - INFO -  use_site_embedding: False
+2025-07-21 08:50:10,550 - tai_park_training - INFO -  use_attention: False
+2025-07-21 08:50:10,550 - tai_park_training - INFO -  num_classes: 8
+2025-07-21 08:50:10,550 - tai_park_training - INFO -  feature_dim: 768
+2025-07-21 08:50:10,550 - tai_park_training - INFO -   TRAINING CONFIGURATION
+2025-07-21 08:50:10,550 - tai_park_training - INFO - ==================================================
+2025-07-21 08:50:10,550 - tai_park_training - INFO -  Training:
+2025-07-21 08:50:10,551 - tai_park_training - INFO -    Epochs: 35
+2025-07-21 08:50:10,551 - tai_park_training - INFO -    Batch size: 20
+2025-07-21 08:50:10,551 - tai_park_training - INFO -    Learning rate: 0.0005
+2025-07-21 08:50:10,551 - tai_park_training - INFO -    Weight decay: 0.0001
+2025-07-21 08:50:10,551 - tai_park_training - INFO -    Early stopping patience: 10
+2025-07-21 08:50:10,551 - tai_park_training - INFO -  Data:
+2025-07-21 08:50:10,552 - tai_park_training - INFO -    Data directory: data/raw
+2025-07-21 08:50:10,552 - tai_park_training - INFO -    Image size: [224, 224]
+2025-07-21 08:50:10,552 - tai_park_training - INFO -    Number of workers: N/A
+2025-07-21 08:50:10,552 - tai_park_training - INFO -    Sampler type: N/A
+2025-07-21 08:50:10,552 - tai_park_training - INFO -    Aggressive augmentation: False
+2025-07-21 08:50:10,552 - tai_park_training - INFO -  Model:
+2025-07-21 08:50:10,553 - tai_park_training - INFO -    Architecture: convnext_tiny
+2025-07-21 08:50:10,553 - tai_park_training - INFO -    Pretrained: False
+2025-07-21 08:50:10,553 - tai_park_training - INFO -    Dropout: 0.5
+2025-07-21 08:50:10,553 - tai_park_training - INFO -    Freeze backbone: False
+2025-07-21 08:50:10,553 - tai_park_training - INFO -  Hardware:
+2025-07-21 08:50:10,553 - tai_park_training - INFO -    Device: auto
+2025-07-21 08:50:10,553 - tai_park_training - INFO -    Mixed precision: True
+2025-07-21 08:50:10,554 - tai_park_training - INFO -    Compile: False
+2025-07-21 08:50:10,554 - tai_park_training - INFO -  Logging:
+2025-07-21 08:50:10,554 - tai_park_training - INFO -    W&B enabled: False
+2025-07-21 08:50:10,554 - tai_park_training - INFO -    Experiment name: convnext_tiny_0.0005_focal_stdaug_wei_04
+2025-07-21 08:50:10,554 - tai_park_training - INFO -    Log level: INFO
+2025-07-21 08:50:10,561 - tai_park_training - INFO -  Trainer initialized with mixed precision: True
+2025-07-21 08:50:10,562 - tai_park_training - INFO -  Starting training...
+2025-07-21 08:50:10,562 - tai_park_training - INFO -  Starting training for 35 epochs
+2025-07-21 08:50:10,562 - tai_park_training - INFO -  Training samples: 13484
+2025-07-21 08:50:10,562 - tai_park_training - INFO -  Validation samples: 3004
+2025-07-21 08:52:14,098 - tai_park_training - INFO -  Epoch 1 completed in 123.54s
+2025-07-21 08:52:14,098 - tai_park_training - INFO -    Train - Loss: 1.8455, Acc: 0.1227
+2025-07-21 08:52:14,099 - tai_park_training - INFO -    Val   - Loss: 1.5683, Acc: 0.0782, LogLoss: 2.0949
+2025-07-21 08:52:14,346 - tai_park_training - INFO -  Checkpoint saved to: results\models\convnext_tiny_0.0005_focal_stdaug_wei_04\models\best_model.pth
+2025-07-21 08:52:14,346 - tai_park_training - INFO -  New best model saved! Val Loss: 1.5683
+2025-07-21 08:54:17,429 - tai_park_training - INFO -  Epoch 2 completed in 123.08s
+2025-07-21 08:54:17,429 - tai_park_training - INFO -    Train - Loss: 1.8528, Acc: 0.1231
+2025-07-21 08:54:17,429 - tai_park_training - INFO -    Val   - Loss: 1.5712, Acc: 0.1162, LogLoss: 2.0963
+2025-07-21 08:56:20,398 - tai_park_training - INFO -  Epoch 3 completed in 122.97s
+2025-07-21 08:56:20,399 - tai_park_training - INFO -    Train - Loss: 1.8418, Acc: 0.1214
+2025-07-21 08:56:20,399 - tai_park_training - INFO -    Val   - Loss: 1.5731, Acc: 0.0732, LogLoss: 2.1002
+2025-07-21 08:58:23,580 - tai_park_training - INFO -  Epoch 4 completed in 123.18s
+2025-07-21 08:58:23,580 - tai_park_training - INFO -    Train - Loss: 1.8579, Acc: 0.1230
+2025-07-21 08:58:23,580 - tai_park_training - INFO -    Val   - Loss: 1.5729, Acc: 0.1095, LogLoss: 2.0970
+2025-07-21 09:00:27,327 - tai_park_training - INFO -  Epoch 5 completed in 123.74s
+2025-07-21 09:00:27,327 - tai_park_training - INFO -    Train - Loss: 1.8433, Acc: 0.1223
+2025-07-21 09:00:27,327 - tai_park_training - INFO -    Val   - Loss: 1.5662, Acc: 0.0862, LogLoss: 2.0920
+2025-07-21 09:00:27,580 - tai_park_training - INFO -  Checkpoint saved to: results\models\convnext_tiny_0.0005_focal_stdaug_wei_04\models\checkpoint_epoch_5.pth
+2025-07-21 09:02:31,059 - tai_park_training - INFO -  Epoch 6 completed in 123.48s
+2025-07-21 09:02:31,060 - tai_park_training - INFO -    Train - Loss: 1.8437, Acc: 0.1227
+2025-07-21 09:02:31,060 - tai_park_training - INFO -    Val   - Loss: 1.5613, Acc: 0.0889, LogLoss: 2.0882
+2025-07-21 09:04:35,887 - tai_park_training - INFO -  Epoch 7 completed in 124.82s
+2025-07-21 09:04:35,887 - tai_park_training - INFO -    Train - Loss: 1.8533, Acc: 0.1263
+2025-07-21 09:04:35,888 - tai_park_training - INFO -    Val   - Loss: 1.5612, Acc: 0.1465, LogLoss: 2.0835
+2025-07-21 09:06:39,805 - tai_park_training - INFO -  Epoch 8 completed in 123.92s
+2025-07-21 09:06:39,805 - tai_park_training - INFO -    Train - Loss: 1.8523, Acc: 0.1254
+2025-07-21 09:06:39,806 - tai_park_training - INFO -    Val   - Loss: 1.5757, Acc: 0.1155, LogLoss: 2.1011
+2025-07-21 09:08:44,390 - tai_park_training - INFO -  Epoch 9 completed in 124.58s
+2025-07-21 09:08:44,390 - tai_park_training - INFO -    Train - Loss: 1.8542, Acc: 0.1219
+2025-07-21 09:08:44,391 - tai_park_training - INFO -    Val   - Loss: 1.5728, Acc: 0.0836, LogLoss: 2.0962
+2025-07-21 09:10:48,291 - tai_park_training - INFO -  Epoch 10 completed in 123.90s
+2025-07-21 09:10:48,292 - tai_park_training - INFO -    Train - Loss: 1.8662, Acc: 0.1204
+2025-07-21 09:10:48,292 - tai_park_training - INFO -    Val   - Loss: 1.5685, Acc: 0.1025, LogLoss: 2.0926
+2025-07-21 09:10:48,531 - tai_park_training - INFO -  Checkpoint saved to: results\models\convnext_tiny_0.0005_focal_stdaug_wei_04\models\checkpoint_epoch_10.pth
+2025-07-21 09:12:54,469 - tai_park_training - INFO -  Epoch 11 completed in 125.94s
+2025-07-21 09:12:54,470 - tai_park_training - INFO -    Train - Loss: 1.8558, Acc: 0.1210
+2025-07-21 09:12:54,470 - tai_park_training - INFO -    Val   - Loss: 1.5706, Acc: 0.1009, LogLoss: 2.0941
+2025-07-21 09:12:54,472 - tai_park_training - INFO -  Early stopping triggered after 10 epochs without improvement
+2025-07-21 09:12:54,472 - tai_park_training - INFO -  Training completed in 1363.91 seconds
+2025-07-21 09:12:54,472 - tai_park_training - INFO -  Best validation loss: 1.5683
+2025-07-21 09:12:54,473 - tai_park_training - INFO -  Best validation accuracy: 0.0782
+2025-07-21 09:12:54,474 - tai_park_training - INFO -  Training history saved to: results\models\convnext_tiny_0.0005_focal_stdaug_wei_04\models\training_history.json
+2025-07-21 09:12:54,474 - tai_park_training - INFO -  Training completed successfully!
+2025-07-21 09:12:54,625 - tai_park_training - INFO -  Model saved for inference: results\models\convnext_tiny_0.0005_focal_stdaug_wei_04\models\final_model.pth
+2025-07-21 09:12:54,625 - tai_park_training - INFO -  Final model saved to: results\models\convnext_tiny_0.0005_focal_stdaug_wei_04\models\final_model.pth

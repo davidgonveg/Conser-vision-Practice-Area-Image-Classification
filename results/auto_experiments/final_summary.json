@@ -1,0 +1,376 @@
+{
+  "execution_summary": {
+    "start_time": "2025-07-21T08:47:33.521788",
+    "end_time": "2025-07-21T09:36:17.451265",
+    "total_time_hours": 0.8122026302777778,
+    "time_budget_hours": 6.0,
+    "total_experiments": 6,
+    "completed_experiments": 2,
+    "failed_experiments": 4,
+    "success_rate": 0.3333333333333333
+  },
+  "completed_experiments": [
+    {
+      "name": "convnext_tiny_0.0005_focal_stdaug_wei_04",
+      "config": {
+        "data_dir": "data/raw",
+        "mixed_precision": true,
+        "class_weights": true,
+        "validation_sites": "data/processed/validation_sites.csv",
+        "model": "convnext_tiny",
+        "epochs": 35,
+        "batch_size": 20,
+        "lr": 0.0005,
+        "focal_loss": true,
+        "aggressive_aug": false,
+        "experiment_name": "convnext_tiny_0.0005_focal_stdaug_wei_04"
+      },
+      "status": "completed",
+      "training_time_hours": 0.3819521273507012,
+      "metrics": {
+        "best_val_accuracy": 0.14647137150466044,
+        "final_val_accuracy": 0.10086551264980026,
+        "best_val_log_loss": 2.083542562510573,
+        "final_val_log_loss": 2.094125041170884,
+        "final_train_accuracy": 0.12103233461880747,
+        "total_epochs": 11
+      },
+      "output_dir": "results/models/convnext_tiny_0.0005_focal_stdaug_wei_04"
+    },
+    {
+      "name": "resnet101_0.0008_focal_stdaug_sit_05",
+      "config": {
+        "data_dir": "data/raw",
+        "mixed_precision": true,
+        "class_weights": true,
+        "validation_sites": "data/processed/validation_sites.csv",
+        "model": "resnet101",
+        "epochs": 30,
+        "batch_size": 24,
+        "lr": 0.0008,
+        "focal_loss": true,
+        "sampler": "site_aware",
+        "experiment_name": "resnet101_0.0008_focal_stdaug_sit_05"
+      },
+      "status": "completed",
+      "training_time_hours": 0.3894189239872827,
+      "metrics": {
+        "best_val_accuracy": 0.22936085219707059,
+        "final_val_accuracy": 0.21904127829560585,
+        "best_val_log_loss": 1.960774258353602,
+        "final_val_log_loss": 1.960774258353602,
+        "final_train_accuracy": 0.32182115270350564,
+        "total_epochs": 11
+      },
+      "output_dir": "results/models/resnet101_0.0008_focal_stdaug_sit_05"
+    }
+  ],
+  "failed_experiments": [
+    {
+      "name": "efficientnet_b3_0.0005_focal_aggaug_sit_00",
+      "config": {
+        "data_dir": "data/raw",
+        "mixed_precision": true,
+        "class_weights": true,
+        "validation_sites": "data/processed/validation_sites.csv",
+        "model": "efficientnet_b3",
+        "epochs": 50,
+        "batch_size": 16,
+        "lr": 0.0005,
+        "focal_loss": true,
+        "aggressive_aug": true,
+        "sampler": "site_aware",
+        "experiment_name": "efficientnet_b3_0.0005_focal_aggaug_sit_00"
+      },
+      "status": "failed",
+      "error": null,
+      "training_time_hours": 0.009791911707984076
+    },
+    {
+      "name": "efficientnet_b3_0.0008_focal_stdaug_wei_01",
+      "config": {
+        "data_dir": "data/raw",
+        "mixed_precision": true,
+        "class_weights": true,
+        "validation_sites": "data/processed/validation_sites.csv",
+        "model": "efficientnet_b3",
+        "epochs": 45,
+        "batch_size": 20,
+        "lr": 0.0008,
+        "focal_loss": true,
+        "aggressive_aug": false,
+        "sampler": "weighted",
+        "experiment_name": "efficientnet_b3_0.0008_focal_stdaug_wei_01"
+      },
+      "status": "failed",
+      "error": null,
+      "training_time_hours": 0.01061002684964074
+    },
+    {
+      "name": "efficientnet_b4_0.0003_focal_aggaug_sit_02",
+      "config": {
+        "data_dir": "data/raw",
+        "mixed_precision": true,
+        "class_weights": true,
+        "validation_sites": "data/processed/validation_sites.csv",
+        "model": "efficientnet_b4",
+        "epochs": 40,
+        "batch_size": 12,
+        "lr": 0.0003,
+        "focal_loss": true,
+        "aggressive_aug": true,
+        "sampler": "site_aware",
+        "experiment_name": "efficientnet_b4_0.0003_focal_aggaug_sit_02"
+      },
+      "status": "failed",
+      "error": null,
+      "training_time_hours": 0.009738220373789469
+    },
+    {
+      "name": "efficientnet_b4_0.0005_ce_aggaug_bal_03",
+      "config": {
+        "data_dir": "data/raw",
+        "mixed_precision": true,
+        "class_weights": true,
+        "validation_sites": "data/processed/validation_sites.csv",
+        "model": "efficientnet_b4",
+        "epochs": 35,
+        "batch_size": 16,
+        "lr": 0.0005,
+        "focal_loss": false,
+        "aggressive_aug": true,
+        "sampler": "balanced_batch",
+        "experiment_name": "efficientnet_b4_0.0005_ce_aggaug_bal_03"
+      },
+      "status": "failed",
+      "error": null,
+      "training_time_hours": 0.010687157975302803
+    }
+  ],
+  "best_experiments": {
+    "best_accuracy": {
+      "name": "resnet101_0.0008_focal_stdaug_sit_05",
+      "config": {
+        "data_dir": "data/raw",
+        "mixed_precision": true,
+        "class_weights": true,
+        "validation_sites": "data/processed/validation_sites.csv",
+        "model": "resnet101",
+        "epochs": 30,
+        "batch_size": 24,
+        "lr": 0.0008,
+        "focal_loss": true,
+        "sampler": "site_aware",
+        "experiment_name": "resnet101_0.0008_focal_stdaug_sit_05"
+      },
+      "status": "completed",
+      "training_time_hours": 0.3894189239872827,
+      "metrics": {
+        "best_val_accuracy": 0.22936085219707059,
+        "final_val_accuracy": 0.21904127829560585,
+        "best_val_log_loss": 1.960774258353602,
+        "final_val_log_loss": 1.960774258353602,
+        "final_train_accuracy": 0.32182115270350564,
+        "total_epochs": 11
+      },
+      "output_dir": "results/models/resnet101_0.0008_focal_stdaug_sit_05"
+    },
+    "best_log_loss": {
+      "name": "resnet101_0.0008_focal_stdaug_sit_05",
+      "config": {
+        "data_dir": "data/raw",
+        "mixed_precision": true,
+        "class_weights": true,
+        "validation_sites": "data/processed/validation_sites.csv",
+        "model": "resnet101",
+        "epochs": 30,
+        "batch_size": 24,
+        "lr": 0.0008,
+        "focal_loss": true,
+        "sampler": "site_aware",
+        "experiment_name": "resnet101_0.0008_focal_stdaug_sit_05"
+      },
+      "status": "completed",
+      "training_time_hours": 0.3894189239872827,
+      "metrics": {
+        "best_val_accuracy": 0.22936085219707059,
+        "final_val_accuracy": 0.21904127829560585,
+        "best_val_log_loss": 1.960774258353602,
+        "final_val_log_loss": 1.960774258353602,
+        "final_train_accuracy": 0.32182115270350564,
+        "total_epochs": 11
+      },
+      "output_dir": "results/models/resnet101_0.0008_focal_stdaug_sit_05"
+    }
+  },
+  "rankings": {
+    "by_accuracy": [
+      {
+        "name": "resnet101_0.0008_focal_stdaug_sit_05",
+        "config": {
+          "data_dir": "data/raw",
+          "mixed_precision": true,
+          "class_weights": true,
+          "validation_sites": "data/processed/validation_sites.csv",
+          "model": "resnet101",
+          "epochs": 30,
+          "batch_size": 24,
+          "lr": 0.0008,
+          "focal_loss": true,
+          "sampler": "site_aware",
+          "experiment_name": "resnet101_0.0008_focal_stdaug_sit_05"
+        },
+        "status": "completed",
+        "training_time_hours": 0.3894189239872827,
+        "metrics": {
+          "best_val_accuracy": 0.22936085219707059,
+          "final_val_accuracy": 0.21904127829560585,
+          "best_val_log_loss": 1.960774258353602,
+          "final_val_log_loss": 1.960774258353602,
+          "final_train_accuracy": 0.32182115270350564,
+          "total_epochs": 11
+        },
+        "output_dir": "results/models/resnet101_0.0008_focal_stdaug_sit_05"
+      },
+      {
+        "name": "convnext_tiny_0.0005_focal_stdaug_wei_04",
+        "config": {
+          "data_dir": "data/raw",
+          "mixed_precision": true,
+          "class_weights": true,
+          "validation_sites": "data/processed/validation_sites.csv",
+          "model": "convnext_tiny",
+          "epochs": 35,
+          "batch_size": 20,
+          "lr": 0.0005,
+          "focal_loss": true,
+          "aggressive_aug": false,
+          "experiment_name": "convnext_tiny_0.0005_focal_stdaug_wei_04"
+        },
+        "status": "completed",
+        "training_time_hours": 0.3819521273507012,
+        "metrics": {
+          "best_val_accuracy": 0.14647137150466044,
+          "final_val_accuracy": 0.10086551264980026,
+          "best_val_log_loss": 2.083542562510573,
+          "final_val_log_loss": 2.094125041170884,
+          "final_train_accuracy": 0.12103233461880747,
+          "total_epochs": 11
+        },
+        "output_dir": "results/models/convnext_tiny_0.0005_focal_stdaug_wei_04"
+      }
+    ],
+    "by_log_loss": [
+      {
+        "name": "resnet101_0.0008_focal_stdaug_sit_05",
+        "config": {
+          "data_dir": "data/raw",
+          "mixed_precision": true,
+          "class_weights": true,
+          "validation_sites": "data/processed/validation_sites.csv",
+          "model": "resnet101",
+          "epochs": 30,
+          "batch_size": 24,
+          "lr": 0.0008,
+          "focal_loss": true,
+          "sampler": "site_aware",
+          "experiment_name": "resnet101_0.0008_focal_stdaug_sit_05"
+        },
+        "status": "completed",
+        "training_time_hours": 0.3894189239872827,
+        "metrics": {
+          "best_val_accuracy": 0.22936085219707059,
+          "final_val_accuracy": 0.21904127829560585,
+          "best_val_log_loss": 1.960774258353602,
+          "final_val_log_loss": 1.960774258353602,
+          "final_train_accuracy": 0.32182115270350564,
+          "total_epochs": 11
+        },
+        "output_dir": "results/models/resnet101_0.0008_focal_stdaug_sit_05"
+      },
+      {
+        "name": "convnext_tiny_0.0005_focal_stdaug_wei_04",
+        "config": {
+          "data_dir": "data/raw",
+          "mixed_precision": true,
+          "class_weights": true,
+          "validation_sites": "data/processed/validation_sites.csv",
+          "model": "convnext_tiny",
+          "epochs": 35,
+          "batch_size": 20,
+          "lr": 0.0005,
+          "focal_loss": true,
+          "aggressive_aug": false,
+          "experiment_name": "convnext_tiny_0.0005_focal_stdaug_wei_04"
+        },
+        "status": "completed",
+        "training_time_hours": 0.3819521273507012,
+        "metrics": {
+          "best_val_accuracy": 0.14647137150466044,
+          "final_val_accuracy": 0.10086551264980026,
+          "best_val_log_loss": 2.083542562510573,
+          "final_val_log_loss": 2.094125041170884,
+          "final_train_accuracy": 0.12103233461880747,
+          "total_epochs": 11
+        },
+        "output_dir": "results/models/convnext_tiny_0.0005_focal_stdaug_wei_04"
+      }
+    ],
+    "by_efficiency": [
+      {
+        "name": "resnet101_0.0008_focal_stdaug_sit_05",
+        "config": {
+          "data_dir": "data/raw",
+          "mixed_precision": true,
+          "class_weights": true,
+          "validation_sites": "data/processed/validation_sites.csv",
+          "model": "resnet101",
+          "epochs": 30,
+          "batch_size": 24,
+          "lr": 0.0008,
+          "focal_loss": true,
+          "sampler": "site_aware",
+          "experiment_name": "resnet101_0.0008_focal_stdaug_sit_05"
+        },
+        "status": "completed",
+        "training_time_hours": 0.3894189239872827,
+        "metrics": {
+          "best_val_accuracy": 0.22936085219707059,
+          "final_val_accuracy": 0.21904127829560585,
+          "best_val_log_loss": 1.960774258353602,
+          "final_val_log_loss": 1.960774258353602,
+          "final_train_accuracy": 0.32182115270350564,
+          "total_epochs": 11
+        },
+        "output_dir": "results/models/resnet101_0.0008_focal_stdaug_sit_05"
+      },
+      {
+        "name": "convnext_tiny_0.0005_focal_stdaug_wei_04",
+        "config": {
+          "data_dir": "data/raw",
+          "mixed_precision": true,
+          "class_weights": true,
+          "validation_sites": "data/processed/validation_sites.csv",
+          "model": "convnext_tiny",
+          "epochs": 35,
+          "batch_size": 20,
+          "lr": 0.0005,
+          "focal_loss": true,
+          "aggressive_aug": false,
+          "experiment_name": "convnext_tiny_0.0005_focal_stdaug_wei_04"
+        },
+        "status": "completed",
+        "training_time_hours": 0.3819521273507012,
+        "metrics": {
+          "best_val_accuracy": 0.14647137150466044,
+          "final_val_accuracy": 0.10086551264980026,
+          "best_val_log_loss": 2.083542562510573,
+          "final_val_log_loss": 2.094125041170884,
+          "final_train_accuracy": 0.12103233461880747,
+          "total_epochs": 11
+        },
+        "output_dir": "results/models/convnext_tiny_0.0005_focal_stdaug_wei_04"
+      }
+    ]
+  }
+}

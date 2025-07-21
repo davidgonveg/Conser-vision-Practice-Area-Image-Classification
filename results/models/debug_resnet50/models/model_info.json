@@ -1,0 +1,5 @@
+{
+  "model_name": "resnet50",
+  "num_parameters": 25873224,
+  "trainable_parameters": 25873224
+}

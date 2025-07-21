@@ -1,0 +1,7 @@
+2025-07-21 08:35:20,264 - tai_park_training - INFO - AutoTrainer iniciado - Presupuesto: 2.0h
+2025-07-21 08:35:20,264 - tai_park_training - INFO - Directorio de salida: results\auto_experiments
+2025-07-21 08:35:20,264 - tai_park_training - INFO - Iniciando entrenamiento automático - Prioridad: quick
+2025-07-21 08:35:20,265 - tai_park_training - INFO - Total de experimentos planificados: 3
+2025-07-21 08:35:20,265 - tai_park_training - INFO - Tiempo restante: 2.0h | Experimentos restantes: 3
+2025-07-21 08:35:20,265 - tai_park_training - INFO - Iniciando experimento: resnet50_0.001_ce_stdaug_wei_00
+2025-07-21 08:35:20,265 - tai_park_training - INFO - Comando: C:\Users\gonza\Documents\Conser-vision-Practice-Area-Image-Classification\tai-park-env\Scripts\python.exe scripts/train_model.py --model resnet50 --epochs 10 --batch-size 32 --learning-rate 0.001 --experiment-name resnet50_0.001_ce_stdaug_wei_00 --mixed-precision --class-weights --validation-sites data/processed/validation_sites.csv

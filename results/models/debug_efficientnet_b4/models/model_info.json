@@ -1,0 +1,5 @@
+{
+  "model_name": "efficientnet_b4",
+  "num_parameters": 19651664,
+  "trainable_parameters": 19651664
+}

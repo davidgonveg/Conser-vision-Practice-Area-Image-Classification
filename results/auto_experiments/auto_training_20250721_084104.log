@@ -1,0 +1,43 @@
+2025-07-21 08:41:04,164 - tai_park_training - INFO - AutoTrainer iniciado - Presupuesto: 2.0h
+2025-07-21 08:41:04,165 - tai_park_training - INFO - Directorio de salida: results\auto_experiments
+2025-07-21 08:41:04,165 - tai_park_training - INFO - Iniciando entrenamiento automático - Prioridad: quick
+2025-07-21 08:41:04,165 - tai_park_training - INFO - Total de experimentos planificados: 3
+2025-07-21 08:41:04,165 - tai_park_training - INFO - Tiempo restante: 2.0h | Experimentos restantes: 3
+2025-07-21 08:41:04,165 - tai_park_training - INFO - Iniciando experimento: resnet50_0.001_ce_stdaug_wei_00
+2025-07-21 08:41:04,165 - tai_park_training - INFO - Comando: C:\Users\gonza\Documents\Conser-vision-Practice-Area-Image-Classification\tai-park-env\Scripts\python.exe scripts/train_model.py --model resnet50 --epochs 2 --batch-size 32 --learning-rate 0.001 --experiment-name resnet50_0.001_ce_stdaug_wei_00 --mixed-precision --class-weights --validation-sites data/processed/validation_sites.csv
+2025-07-21 08:45:05,735 - tai_park_training - INFO - [OK] Experimento resnet50_0.001_ce_stdaug_wei_00 completado en 0.07h
+2025-07-21 08:45:05,737 - tai_park_training - INFO - Tiempo restante: 1.9h | Experimentos restantes: 2
+2025-07-21 08:45:05,737 - tai_park_training - INFO - Iniciando experimento: efficientnet_b0_0.001_ce_stdaug_wei_01
+2025-07-21 08:45:05,737 - tai_park_training - INFO - Comando: C:\Users\gonza\Documents\Conser-vision-Practice-Area-Image-Classification\tai-park-env\Scripts\python.exe scripts/train_model.py --model efficientnet_b0 --epochs 2 --batch-size 32 --learning-rate 0.001 --experiment-name efficientnet_b0_0.001_ce_stdaug_wei_01 --mixed-precision --class-weights --validation-sites data/processed/validation_sites.csv
+2025-07-21 08:45:44,121 - tai_park_training - ERROR - [FAIL] Experimento efficientnet_b0_0.001_ce_stdaug_wei_01 falló
+2025-07-21 08:45:44,121 - tai_park_training - ERROR - stdout: None
+2025-07-21 08:45:44,122 - tai_park_training - ERROR - stderr: None
+2025-07-21 08:45:44,123 - tai_park_training - INFO - Tiempo restante: 1.9h | Experimentos restantes: 1
+2025-07-21 08:45:44,123 - tai_park_training - INFO - Iniciando experimento: efficientnet_b2_0.0005_ce_stdaug_wei_02
+2025-07-21 08:45:44,123 - tai_park_training - INFO - Comando: C:\Users\gonza\Documents\Conser-vision-Practice-Area-Image-Classification\tai-park-env\Scripts\python.exe scripts/train_model.py --model efficientnet_b2 --epochs 2 --batch-size 16 --learning-rate 0.0005 --experiment-name efficientnet_b2_0.0005_ce_stdaug_wei_02 --mixed-precision --class-weights --validation-sites data/processed/validation_sites.csv
+2025-07-21 08:46:22,125 - tai_park_training - ERROR - [FAIL] Experimento efficientnet_b2_0.0005_ce_stdaug_wei_02 falló
+2025-07-21 08:46:22,126 - tai_park_training - ERROR - stdout: None
+2025-07-21 08:46:22,126 - tai_park_training - ERROR - stderr: None
+2025-07-21 08:46:22,128 - tai_park_training - INFO - Resumen final guardado en: results\auto_experiments\final_summary.json
+2025-07-21 08:46:22,128 - tai_park_training - INFO - 
+================================================================================
+2025-07-21 08:46:22,128 - tai_park_training - INFO - RESUMEN FINAL DE ENTRENAMIENTO AUTOMÁTICO
+2025-07-21 08:46:22,128 - tai_park_training - INFO - ================================================================================
+2025-07-21 08:46:22,129 - tai_park_training - INFO - Tiempo total: 0.09h / 2.00h
+2025-07-21 08:46:22,129 - tai_park_training - INFO - Experimentos: 1 exitosos, 2 fallidos
+2025-07-21 08:46:22,129 - tai_park_training - INFO - Tasa de éxito: 33.3%
+2025-07-21 08:46:22,129 - tai_park_training - INFO - 
+MEJOR ACCURACY: resnet50_0.001_ce_stdaug_wei_00
+2025-07-21 08:46:22,129 - tai_park_training - INFO -    Accuracy: 0.1485
+2025-07-21 08:46:22,129 - tai_park_training - INFO -    Modelo: resnet50
+2025-07-21 08:46:22,129 - tai_park_training - INFO -    Config: lr=0.001, focal=False
+2025-07-21 08:46:22,130 - tai_park_training - INFO - 
+MEJOR LOG LOSS: resnet50_0.001_ce_stdaug_wei_00
+2025-07-21 08:46:22,130 - tai_park_training - INFO -    Log Loss: 2.0133
+2025-07-21 08:46:22,130 - tai_park_training - INFO -    Modelo: resnet50
+2025-07-21 08:46:22,130 - tai_park_training - INFO -    Config: lr=0.001, focal=False
+2025-07-21 08:46:22,130 - tai_park_training - INFO - 
+TOP 3 POR ACCURACY:
+2025-07-21 08:46:22,130 - tai_park_training - INFO -    1. resnet50_0.001_ce_stdaug_wei_00: 0.1485
+2025-07-21 08:46:22,131 - tai_park_training - INFO - 
+================================================================================
