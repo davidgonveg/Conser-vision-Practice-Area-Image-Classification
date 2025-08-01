@@ -26,7 +26,7 @@ MANIFEST
 *.pt
 
 #Notebooks antiguos
-solution.ipynb
+# solution.ipynb
 solution copy.ipynb
 
 
