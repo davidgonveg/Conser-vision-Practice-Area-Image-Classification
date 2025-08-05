@@ -115,7 +115,7 @@ def complete_pipeline_example():
         dataset_manager.y_eval,
         preprocessing=custom_preprocessing
     )
-    eval_dataloader = DataLoader(eval_dataset, batch_size=64)
+    eval_dataloader = DataLoader(eval_dataset, batch_size=64, num_workers=4, pin_memory=True)
     
     # Evaluate exactly like notebook
     eval_results = evaluate_notebook_style(

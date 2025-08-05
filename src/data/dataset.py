@@ -9,6 +9,7 @@ import logging
 import warnings
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+import os
 
 import cv2
 import numpy as np
@@ -70,11 +71,12 @@ class ImagesDataset(Dataset):
     a dictionary containing the image id, image tensors, and label.
     """
 
-    def __init__(self, x_df, y_df=None, preprocessing=None, augmentation=None):
+    def __init__(self, x_df, y_df=None, preprocessing=None, augmentation=None, data_dir=None):
         self.data = x_df
         self.label = y_df
         self.preprocessing = preprocessing
         self.augmentation = augmentation
+        self.data_dir = data_dir or ""
         
         # Exact transform pipeline from notebook
         self.transform = transforms.Compose([
@@ -88,7 +90,8 @@ class ImagesDataset(Dataset):
 
     def __getitem__(self, index):
         # Load image exactly like notebook
-        image = Image.open(self.data.iloc[index]["filepath"]).convert("RGB")
+        image_path = os.path.join(self.data_dir, self.data.iloc[index]["filepath"])
+        image = Image.open(image_path).convert("RGB")
 
         # Preprocesamiento de la imagen
         if self.preprocessing is not None:
@@ -115,7 +118,7 @@ class ImagesDataset(Dataset):
         return len(self.data)
 
 
-def create_combined_dataset(original_dataset, num_augmentations, augmentation_functions, x_train, y_train):
+def create_combined_dataset(original_dataset, num_augmentations, augmentation_functions, x_train, y_train, data_dir):
     """
     Creates a combined dataset with the original dataset and multiple augmented versions.
     Exact replica of notebook function.
@@ -136,6 +139,7 @@ def create_combined_dataset(original_dataset, num_augmentations, augmentation_fu
             x_train, y_train, 
             preprocessing=custom_preprocessing,
             augmentation=augmentation_functions,
+            data_dir=data_dir
         )
         datasets.append(augmented_dataset)
 
@@ -293,7 +297,8 @@ class TaiParkDatasetNotebookStyle:
         train_dataset_original = ImagesDataset(
             self.x_train, self.y_train, 
             preprocessing=preprocessing, 
-            augmentation=None  # No augmentation for original
+            augmentation=None,
+            data_dir=data_dir 
         )
         
         # Create combined dataset with augmentations like notebook
@@ -303,13 +308,14 @@ class TaiParkDatasetNotebookStyle:
                 self.num_augmentations, 
                 augmentation,
                 self.x_train, 
-                self.y_train
+                self.y_train,
+                self.data_dir
             )
         else:
             train_dataset = train_dataset_original
         
         # Create eval dataset exactly like notebook (no augmentation)
-        eval_dataset = ImagesDataset(self.x_eval, self.y_eval)
+        eval_dataset = ImagesDataset(self.x_eval, self.y_eval, data_dir=self.data_dir)
         
         return train_dataset, eval_dataset
 
@@ -328,8 +334,8 @@ class TaiParkDatasetNotebookStyle:
         train_dataset, eval_dataset = self.create_datasets()
         
         # Create dataloaders exactly like notebook
-        train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=shuffle_train)
-        eval_dataloader = DataLoader(eval_dataset, batch_size=batch_size)
+        train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=shuffle_train, num_workers=4, pin_memory=True)
+        eval_dataloader = DataLoader(eval_dataset, batch_size=batch_size, num_workers=4, pin_memory=True)
         
         return train_dataloader, eval_dataloader
 
@@ -337,7 +343,7 @@ class TaiParkDatasetNotebookStyle:
         """Create test dataset for inference."""
         
         x_test = self.test_features.filepath.to_frame()
-        test_dataset = ImagesDataset(x_test, y_df=None)  # No labels for test
+        test_dataset = ImagesDataset(x_test, y_df=None, data_dir=self.data_dir)  # No labels for test
         
         return test_dataset
 
@@ -345,7 +351,7 @@ class TaiParkDatasetNotebookStyle:
         """Create test dataloader for inference."""
         
         test_dataset = self.create_test_dataset()
-        test_dataloader = DataLoader(test_dataset, batch_size=batch_size)
+        test_dataloader = DataLoader(test_dataset, batch_size=batch_size, num_workers=4, pin_memory=True)
         
         return test_dataloader
 

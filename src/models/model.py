@@ -7,6 +7,7 @@ with ResNet152 backbone and custom classification head.
 
 import logging
 from typing import Dict, List, Optional, Tuple, Union
+import os
 
 import torch
 import torch.nn as nn

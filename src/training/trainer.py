@@ -9,6 +9,8 @@ import copy
 import logging
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Union
+import os
+import numpy as np
 
 import pandas as pd
 import torch
@@ -158,7 +160,8 @@ class NotebookStyleTrainer:
             self.dataset_manager.x_train, 
             self.dataset_manager.y_train, 
             preprocessing=custom_preprocessing, 
-            augmentation=None
+            augmentation=None,
+            data_dir=self.dataset_manager.data_dir
         )
         
         train_dataset = create_combined_dataset(
@@ -166,14 +169,15 @@ class NotebookStyleTrainer:
             2,  # num_augmentations from notebook
             data_augmentation,
             self.dataset_manager.x_train, 
-            self.dataset_manager.y_train
+            self.dataset_manager.y_train,
+            self.dataset_manager.data_dir
         )
         
-        train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+        train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4, pin_memory=True)
         
         # Create eval dataloader
-        eval_dataset = ImagesDataset(self.dataset_manager.x_eval, self.dataset_manager.y_eval)
-        eval_dataloader = DataLoader(eval_dataset, batch_size=batch_size)
+        eval_dataset = ImagesDataset(self.dataset_manager.x_eval, self.dataset_manager.y_eval, data_dir=self.dataset_manager.data_dir)
+        eval_dataloader = DataLoader(eval_dataset, batch_size=batch_size, num_workers=4, pin_memory=True)
         
         steps_per_epoch = len(train_dataloader)
         quarter_step = steps_per_epoch // 10  # Evaluation frequency from notebook
