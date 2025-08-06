@@ -1,0 +1,17 @@
+{
+  "experiment_name": "simple_resnet152_20250806_070722",
+  "model": "resnet152",
+  "optimizer": "sgd",
+  "learning_rate": 0.01,
+  "weight_decay": 0.0001,
+  "momentum": 0.9,
+  "epochs": 5,
+  "batch_size": 64,
+  "loss": "cross_entropy",
+  "aggressive_aug": false,
+  "class_weights": false,
+  "fraction": 1.0,
+  "random_state": 42,
+  "mixed_precision": false,
+  "timestamp": "2025-08-06 07:07:22"
+}
