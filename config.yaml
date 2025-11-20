@@ -1,0 +1,28 @@
+data:
+  # Proporción de datos a usar (1.0 para usar todos)
+  frac: 1.0 
+  random_state: 1
+  test_size: 0.25
+  batch_size: 64
+
+model:
+  name: resnet152
+  # Número de especies a clasificar
+  num_classes: 8 
+  # Si congelar las capas del backbone preentrenado
+  freeze_backbone: True
+
+training:
+  num_epochs: 50
+  lr: 0.01
+  momentum: 0.909431
+  weight_decay: 0.005
+  early_stopping_patience: 5
+  device: "cuda"
+
+paths:
+  # Rutas a los datos y salidas
+  train_features: "data/raw/train_features.csv"
+  train_labels: "data/raw/train_labels.csv"
+  model_output: "outputs/models/best_model.pth"
+  logs_output: "outputs/reports/training_log.csv"

@@ -1,0 +1,10 @@
+# Dependencias principales del proyecto
+pandas
+numpy
+matplotlib
+scikit-learn
+Pillow
+torch
+torchvision
+tqdm
+PyYAML
