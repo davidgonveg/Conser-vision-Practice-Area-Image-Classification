@@ -9,7 +9,7 @@ import copy
 from .config import DEVICE, LEARNING_RATE, MOMENTUM, WEIGHT_DECAY, NUM_EPOCHS, EARLY_STOPPING_PATIENCE
 from .utils import EarlyStopping, save_checkpoint
 
-def train_one_epoch(model, dataloader, criterion, optimizer, device):
+def train_one_epoch(model, dataloader, criterion, optimizer, device, scaler):
     model.train()
     running_loss = 0.0
     running_corrects = 0
@@ -25,13 +25,15 @@ def train_one_epoch(model, dataloader, criterion, optimizer, device):
         # Zero the parameter gradients
         optimizer.zero_grad()
         
-        # Forward pass
-        outputs = model(inputs)
-        loss = criterion(outputs, labels)
+        # Forward pass with Mixed Precision
+        with torch.amp.autocast('cuda',):
+            outputs = model(inputs)
+            loss = criterion(outputs, labels)
         
-        # Backward pass and optimize
-        loss.backward()
-        optimizer.step()
+        # Backward pass and optimize with Scaler
+        scaler.scale(loss).backward()
+        scaler.step(optimizer)
+        scaler.update()
         
         # Statistics
         batch_size = inputs.size(0)
@@ -108,6 +110,9 @@ def train_model(model, train_loader, val_loader):
     
     print(f"Starting training on {DEVICE}...")
     
+    # Mixed Precision Scaler
+    scaler = torch.amp.GradScaler('cuda',)
+
     for epoch in range(NUM_EPOCHS):
         print(f"Epoch {epoch+1}/{NUM_EPOCHS}")
         print("-" * 10)
@@ -115,7 +120,8 @@ def train_model(model, train_loader, val_loader):
         start_time = time.time()
         
         # Train and Validate
-        train_loss, train_acc = train_one_epoch(model, train_loader, criterion, optimizer, DEVICE)
+        # We need to pass scaler to train_one_epoch
+        train_loss, train_acc = train_one_epoch(model, train_loader, criterion, optimizer, DEVICE, scaler)
         val_loss, val_acc = validate(model, val_loader, criterion, DEVICE)
         
         # Scheduler Step

@@ -12,7 +12,7 @@ class ImagesDataset(Dataset):
     Reads in an image, transforms pixel values, and serves
     a dictionary containing the image id, image tensors, and label.
     """
-    def __init__(self, x_df, y_df=None, preprocessing=None, augmentation=None):
+    def __init__(self, x_df, y_df=None, preprocessing=None, augmentation=None, image_dir=None):
         self.data = x_df
         # Ensure 'filepath' column exists if x_df is not exactly the structure we expect
         if "filepath" not in self.data.columns and isinstance(self.data, pd.DataFrame):
@@ -24,6 +24,7 @@ class ImagesDataset(Dataset):
         self.preprocessing = preprocessing
         self.augmentation = augmentation
         self.transform = get_base_transforms()
+        self.image_dir = Path(image_dir) if image_dir else IMAGE_DIR
 
     def __getitem__(self, index):
         # The CSV contains paths like 'train_features/ZJ000000.jpg' or 'test_features/...'
@@ -31,7 +32,13 @@ class ImagesDataset(Dataset):
         # We take the filename and join with IMAGE_DIR.
         csv_filepath = self.data.iloc[index]["filepath"]
         filename = Path(csv_filepath).name
-        image_path = IMAGE_DIR / filename
+        
+        # Defensive check for multiprocessing attribute access issues
+        if not hasattr(self, 'image_dir'):
+            from .config import IMAGE_DIR
+            self.image_dir = IMAGE_DIR
+            
+        image_path = self.image_dir / filename
         image = Image.open(image_path).convert("RGB")
 
         # Custom Preprocessing (PIL level)
@@ -86,13 +93,13 @@ def get_data_splits(train_features, train_labels, test_size=0.25, random_state=S
     )
     return x_train, x_eval, y_train, y_eval
 
-def create_combined_dataset(x_train, y_train, num_augmentations, augmentation_functions):
+def create_combined_dataset(x_train, y_train, num_augmentations, augmentation_functions, image_dir=None):
     """
     Creates a combined dataset with the original dataset and multiple augmented versions.
     """
     # Original dataset with custom preprocessing but NO augmentation
     original_dataset = ImagesDataset(
-        x_train, y_train, preprocessing=custom_preprocessing, augmentation=None
+        x_train, y_train, preprocessing=custom_preprocessing, augmentation=None, image_dir=image_dir
     )
     
     datasets = [original_dataset]
@@ -101,28 +108,29 @@ def create_combined_dataset(x_train, y_train, num_augmentations, augmentation_fu
         augmented_dataset = ImagesDataset(
             x_train, y_train, 
             preprocessing=custom_preprocessing,
-            augmentation=augmentation_functions
+            augmentation=augmentation_functions,
+            image_dir=image_dir
         )
         datasets.append(augmented_dataset)
 
     combined_dataset = ConcatDataset(datasets)
     return combined_dataset
 
-def get_dataloaders(x_train, y_train, x_eval, y_eval, augmentation_functions=None, batch_size=BATCH_SIZE):
+def get_dataloaders(x_train, y_train, x_eval, y_eval, augmentation_functions=None, batch_size=BATCH_SIZE, image_dir=None):
     """
     Creates DataLoaders for training and evaluation.
     """
     # Training set
     if augmentation_functions:
         # Create augmented dataset (2 augmentations as per notebook default)
-        train_dataset = create_combined_dataset(x_train, y_train, 2, augmentation_functions)
+        train_dataset = create_combined_dataset(x_train, y_train, 2, augmentation_functions, image_dir=image_dir)
     else:
-        train_dataset = ImagesDataset(x_train, y_train, preprocessing=custom_preprocessing)
+        train_dataset = ImagesDataset(x_train, y_train, preprocessing=custom_preprocessing, image_dir=image_dir)
         
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=0) # num_workers=0 for Windows safety
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4, pin_memory=True) # Optimized for speed
     
     # Evaluation set (No augmentation)
-    eval_dataset = ImagesDataset(x_eval, y_eval, preprocessing=custom_preprocessing)
-    eval_loader = DataLoader(eval_dataset, batch_size=batch_size, shuffle=False, num_workers=0)
+    eval_dataset = ImagesDataset(x_eval, y_eval, preprocessing=custom_preprocessing, image_dir=image_dir)
+    eval_loader = DataLoader(eval_dataset, batch_size=batch_size, shuffle=False, num_workers=4, pin_memory=True)
     
     return train_loader, eval_loader

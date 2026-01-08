@@ -7,6 +7,7 @@ TRAIN_LABELS = DATA_DIR / "train_labels.csv"
 SUBMISSION_FORMAT = DATA_DIR / "submission_format.csv"
 TEST_FEATURES = DATA_DIR / "test_features.csv" # Assuming test features file name if exists, or just use submission format
 IMAGE_DIR = DATA_DIR / "images"
+PROCESSED_IMAGE_DIR = DATA_DIR / "processed_images"
 
 # Hyperparameters
 BATCH_SIZE = 64 # From notebook

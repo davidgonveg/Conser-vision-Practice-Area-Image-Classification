@@ -11,6 +11,7 @@ from src.preprocessing import get_augmentation_transforms
 from src.model import get_model
 from src.train import train_model
 from src.predict import generate_submission
+from src.dataset_cache import prepare_cached_dataset
 
 def main():
     parser = argparse.ArgumentParser(description="Image Classification Pipeline")
@@ -27,9 +28,12 @@ def main():
         # Note: In a real scenario, you might want to save/load splits to ensure consistency
         x_train, x_eval, y_train, y_eval = get_data_splits(train_features, train_labels)
         
+        print("Preparing cached dataset (offline resizing)...")
+        cache_dir = prepare_cached_dataset()
+        
         print("Creating dataloaders...")
         augmentation = get_augmentation_transforms()
-        train_loader, val_loader = get_dataloaders(x_train, y_train, x_eval, y_eval, augmentation_functions=augmentation)
+        train_loader, val_loader = get_dataloaders(x_train, y_train, x_eval, y_eval, augmentation_functions=augmentation, image_dir=cache_dir)
         
         print("Initializing model...")
         model = get_model(config.NUM_CLASSES)

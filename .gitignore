@@ -78,3 +78,5 @@ results/logs/**/*.txt
 # Temporary files
 *.tmp
 *.temp
+*.pth.tar
+data/processed_images/
