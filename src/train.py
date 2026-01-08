@@ -8,6 +8,7 @@ import copy
 
 from .config import DEVICE, LEARNING_RATE, MOMENTUM, WEIGHT_DECAY, NUM_EPOCHS, EARLY_STOPPING_PATIENCE
 from .utils import EarlyStopping, save_checkpoint
+from .tracker import ExperimentTracker
 
 def train_one_epoch(model, dataloader, criterion, optimizer, device, scaler):
     model.train()
@@ -111,7 +112,32 @@ def train_model(model, train_loader, val_loader):
     print(f"Starting training on {DEVICE}...")
     
     # Mixed Precision Scaler
+    # Mixed Precision Scaler
     scaler = torch.amp.GradScaler('cuda',)
+
+    # Initialize Experiment Tracker
+    tracker = ExperimentTracker(experiment_name="resnet152_custom")
+    
+    # Log Configuration
+    tracker.log_config({
+        "hyperparameters": {
+            "learning_rate": LEARNING_RATE,
+            "momentum": MOMENTUM,
+            "weight_decay": WEIGHT_DECAY,
+            "batch_size": 64, # Need closer coupling with config.BATCH_SIZE if imported
+            "num_epochs": NUM_EPOCHS,
+            "early_stopping_patience": EARLY_STOPPING_PATIENCE
+        },
+        "model": {
+            "name": "ResNet152",
+            "num_classes": 8,
+            "frozen_layers": "all except layer4 and fc"
+        },
+        "hardware": {
+            "device": str(DEVICE),
+            "mixed_precision": True
+        }
+    })
 
     for epoch in range(NUM_EPOCHS):
         print(f"Epoch {epoch+1}/{NUM_EPOCHS}")
@@ -129,6 +155,10 @@ def train_model(model, train_loader, val_loader):
         
         elapsed = time.time() - start_time
         print(f"Train Loss: {train_loss:.4f} Acc: {train_acc:.4f} | Val Loss: {val_loss:.4f} Acc: {val_acc:.4f} [{elapsed:.0f}s]")
+        
+        # Log metrics to CSV
+        current_lr = optimizer.param_groups[0]['lr']
+        tracker.log_metric(epoch+1, train_loss, train_acc, val_loss, val_acc, current_lr)
         
         # Checkpointing
         # Save if validation loss improves 

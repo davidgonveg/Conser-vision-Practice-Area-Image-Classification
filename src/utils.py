@@ -32,9 +32,14 @@ class EarlyStopping:
             self.counter = 0
 
 def save_checkpoint(state, is_best, filename='checkpoint.pth.tar'):
-    torch.save(state, filename)
+    # Import config here to avoid circular import if config imports utils (unlikely but safe)
+    # Or assuming config handles paths. Ideally pass path.
+    # But since we want to enforce organization, let's just use the path from config if available or just save to proper location.
+    from .config import MODELS_DIR
+    filepath = MODELS_DIR / filename
+    torch.save(state, filepath)
     if is_best:
-        shutil.copyfile(filename, 'model_best.pth.tar')
+        shutil.copyfile(filepath, MODELS_DIR / 'model_best.pth.tar')
 
 def load_checkpoint(filename, model, optimizer=None):
     if Path(filename).exists():

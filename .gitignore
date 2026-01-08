@@ -66,14 +66,13 @@ data/raw/test_features/
 !data/submissions/*.csv
 
 # Model files
-results/models/*.pth
-results/models/*.pt
-results/models/*.h5
+results/models/
+*.pth
+*.pt
+*.h5
 
 # Logs
-results/logs/**/*.log
-results/logs/**/*.txt
-!results/logs/.gitkeep
+results/logs/
 
 # Temporary files
 *.tmp

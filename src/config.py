@@ -8,6 +8,10 @@ SUBMISSION_FORMAT = DATA_DIR / "submission_format.csv"
 TEST_FEATURES = DATA_DIR / "test_features.csv" # Assuming test features file name if exists, or just use submission format
 IMAGE_DIR = DATA_DIR / "images"
 PROCESSED_IMAGE_DIR = DATA_DIR / "processed_images"
+MODELS_DIR = Path("results/models")
+MODELS_DIR.mkdir(parents=True, exist_ok=True)
+LOGS_DIR = Path("results/logs")
+LOGS_DIR.mkdir(parents=True, exist_ok=True)
 
 # Hyperparameters
 BATCH_SIZE = 64 # From notebook
