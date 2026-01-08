@@ -12,6 +12,8 @@ MODELS_DIR = Path("results/models")
 MODELS_DIR.mkdir(parents=True, exist_ok=True)
 LOGS_DIR = Path("results/logs")
 LOGS_DIR.mkdir(parents=True, exist_ok=True)
+SUBMISSIONS_DIR = Path("results/submissions")
+SUBMISSIONS_DIR.mkdir(parents=True, exist_ok=True)
 
 # Hyperparameters
 BATCH_SIZE = 64 # From notebook

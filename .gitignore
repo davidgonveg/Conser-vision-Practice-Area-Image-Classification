@@ -63,7 +63,7 @@ data/raw/test_features/
 *.png
 *.csv
 !data/processed/*.csv
-!data/submissions/*.csv
+results/submissions/
 
 # Model files
 results/models/
