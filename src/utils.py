@@ -1,6 +1,8 @@
 import torch
 import shutil
 from pathlib import Path
+import numpy as np
+from sklearn.utils.class_weight import compute_class_weight
 
 class EarlyStopping:
     """
@@ -52,3 +54,49 @@ def load_checkpoint(filename, model, optimizer=None):
     else:
         print(f"No checkpoint found at '{filename}'")
         return None
+
+def calculate_class_weights(labels_df):
+    """
+    Calculates class weights for imbalanced datasets.
+    Args:
+        labels_df: DataFrame containing one-hot encoded labels.
+    Returns:
+        torch.Tensor: Float tensor of weights for each class.
+    """
+    # Convert one-hot to indices
+    # labels_df has columns: [id, class1, class2, ...]
+    # we need to find which class is 1 for each row
+    y_indices = labels_df.idxmax(axis=1).values
+    
+    # Get unique classes from columns (excluding non-class cols if any, but passed df usually is just targets)
+    classes = labels_df.columns.values
+    
+    # We map string class names to integer indices 0..7
+    # Ideally we should match the order in config.CLASS_NAMES
+    # For computation, we just need the array of all labels as indices (0, 0, 1, 7, ...)
+    
+    # Map class strings to integers based on column order
+    class_to_idx = {cls: i for i, cls in enumerate(classes)}
+    y_integers = np.array([class_to_idx[cls] for cls in y_indices])
+    
+    # Compute weights: w_j = n_samples / (n_classes * n_samples_j)
+    class_weights = compute_class_weight(
+        class_weight='balanced',
+        classes=np.unique(y_integers),
+        y=y_integers
+    )
+    
+    # Check if we missed any classes in this split (unlikely with big data but possible)
+    # If a class is missing, its weight won't be in the output of compute_class_weight if not handled carefully
+    # But compute_class_weight with 'balanced' and keys provided usually works. 
+    # Let's ensure output array size matches number of classes.
+    
+    if len(class_weights) != len(classes):
+        # Fallback or mapping
+        full_weights = np.ones(len(classes))
+        unique_classes = np.unique(y_integers)
+        for i, cls_idx in enumerate(unique_classes):
+            full_weights[cls_idx] = class_weights[i]
+        class_weights = full_weights
+
+    return torch.tensor(class_weights, dtype=torch.float)

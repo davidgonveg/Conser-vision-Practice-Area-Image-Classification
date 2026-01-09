@@ -6,8 +6,8 @@ from tqdm import tqdm
 import time
 import copy
 
-from .config import DEVICE, LEARNING_RATE, MOMENTUM, WEIGHT_DECAY, NUM_EPOCHS, EARLY_STOPPING_PATIENCE
-from .utils import EarlyStopping, save_checkpoint
+from .config import DEVICE, LEARNING_RATE, MOMENTUM, WEIGHT_DECAY, NUM_EPOCHS, EARLY_STOPPING_PATIENCE, NUM_CLASSES, CLASS_NAMES, MODEL_ARCH
+from .utils import EarlyStopping, save_checkpoint, calculate_class_weights
 from .tracker import ExperimentTracker
 
 def train_one_epoch(model, dataloader, criterion, optimizer, device, scaler):
@@ -91,11 +91,17 @@ def validate(model, dataloader, criterion, device):
     epoch_acc = running_corrects / total_samples
     return epoch_loss, epoch_acc
 
-def train_model(model, train_loader, val_loader):
+def train_model(model, train_loader, val_loader, class_weights=None):
     model = model.to(DEVICE)
     
     # Loss function and Optimizer
-    criterion = nn.CrossEntropyLoss()
+    if class_weights is not None:
+        class_weights = class_weights.to(DEVICE)
+        print(f"Using Weighted Cross Entropy Loss: {class_weights}")
+        criterion = nn.CrossEntropyLoss(weight=class_weights)
+    else:
+        criterion = nn.CrossEntropyLoss()
+    
     optimizer = optim.SGD(model.parameters(), lr=LEARNING_RATE, momentum=MOMENTUM, weight_decay=WEIGHT_DECAY)
     
     # Scheduler
@@ -116,7 +122,7 @@ def train_model(model, train_loader, val_loader):
     scaler = torch.amp.GradScaler('cuda',)
 
     # Initialize Experiment Tracker
-    tracker = ExperimentTracker(experiment_name="resnet152_custom")
+    tracker = ExperimentTracker(experiment_name=f"{MODEL_ARCH}_custom")
     
     # Log Configuration
     tracker.log_config({
@@ -129,7 +135,7 @@ def train_model(model, train_loader, val_loader):
             "early_stopping_patience": EARLY_STOPPING_PATIENCE
         },
         "model": {
-            "name": "ResNet152",
+            "name": MODEL_ARCH,
             "num_classes": 8,
             "frozen_layers": "all except layer4 and fc"
         },

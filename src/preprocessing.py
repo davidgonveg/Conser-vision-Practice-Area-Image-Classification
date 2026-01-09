@@ -35,6 +35,7 @@ def get_augmentation_transforms():
 def get_base_transforms():
     """
     Returns the basic transforms (Resize, ToTensor, Normalize) applied to all images.
+    Using Grayscale to focus on texture/shape rather than color.
     """
     return transforms.Compose([
         transforms.Grayscale(num_output_channels=3),

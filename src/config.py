@@ -16,15 +16,19 @@ SUBMISSIONS_DIR = Path("results/submissions")
 SUBMISSIONS_DIR.mkdir(parents=True, exist_ok=True)
 
 # Hyperparameters
-BATCH_SIZE = 64 # From notebook
+BATCH_SIZE = 16 # Optimized for RTX3060 with ConvNeXt Large
 LEARNING_RATE = 0.01 # Initial LR (check notebook optimizer)
 MOMENTUM = 0.909431
 WEIGHT_DECAY = 0.005
-NUM_EPOCHS = 35 
-EARLY_STOPPING_PATIENCE = 5
+NUM_EPOCHS = 15 # Per Fold
+EARLY_STOPPING_PATIENCE = 3
+N_FOLDS = 5
+USE_AUGMENTATION = True
 
 # Model
+MODEL_ARCH = 'convnext_large' # Options: 'resnet152', 'efficientnet_v2_s', 'convnext_large'
 NUM_CLASSES = 8
+CLASS_NAMES = ['antelope_duiker', 'bird', 'blank', 'civet_genet', 'hog', 'leopard', 'monkey_prosimian', 'rodent']
 SEED = 42
 
 # Hardware
